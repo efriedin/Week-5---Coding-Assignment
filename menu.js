@@ -5,38 +5,40 @@ class Song {
         this.artistName = artistName;
     }
     describe (){
-        return `${this.songName} by ${this.artistName}`
+        return `${this.songName} by ${this.artistName}`;
     }
 }
 
 class Playlist {
     constructor(playlistName){
         this.playlistName = playlistName;
-        this.song = [];
+        this.songs = [];
     }
 
 
     addSong(song){
         if (song instanceof Song){
-            this.song.push(song);
+            this.songs.push(song);
         }else {
-            throw new error (`You can only add instance of song. Argument is not a song: ${song}`);
+            throw new Error (`You can only add instance of song.
+            Argument is not a song: ${song}`);
         }
     }
+
     describe () {
-        return ` ${this.playlistName} has ${this.song.length} songs. `
+        return `${this.playlistName} has ${this.songs.length} songs.`;
         }
     }
 
-class Menu {
-    constructor(){
-        this.Playlist = [];
-        this.selectedPlaylist = null;
-    }
+    class Menu {
+        constructor(){
+            this.playlist = [];
+            this.selectedPlaylist = null;
+        }
 
-    start ( ) {
+    start () {
         let selection = this.showMainMenuOptions();
-        while (selection !=0){
+        while (selection != 0){
             switch(selection) {
                 case '1':
                     this.createPlaylist();
@@ -48,12 +50,12 @@ class Menu {
                     this.deletePlaylist;
                     break;
                 case '4':
-                    this.viewAllPlaylists;
+                    this.displayAllPlaylists;
                     break;
                 default:
                     selection = 0;
             }
-            selection = this.showMainMenuOptions
+            selection = this.showMainMenuOptions();
         }
         alert('Beebop');
     }
@@ -64,27 +66,25 @@ class Menu {
             0) exit
             1) create a new playlist
             2) view a playlist
-            3) delete a playlsit
+            3) delete a playlist
             4) view all playlists
         `);
     }
-
-    showPlaylistMenuOptions(Playlist){
+0
+    showPlaylistMenuOptions(playlistInfo){
         return prompt (`
-        0) back
-        1) add a new song
-        3) delete a song
-
-        -----------------
-
-        ${PlaylistInfo}
+            0) back
+            1) add a new song
+            3) delete a song
+            -----------------
+            ${playlistInfo}
         `);
     }
 
-    displayPlaylist(){
+    displayAllPlaylists(){
         let playlistString = '';
-            for (let i = 0; i <this.playlist.length; i++) {
-            playlistString += i+ ') ' + this.playlist[i].playlistName + '\n';
+            for (let i = 0; i < this.playlist.length; i++) {
+                playlistString += i+ ') ' + this.playlist[i].playlistName + '\n';
             }
         alert(playlistString);
     }
@@ -98,10 +98,10 @@ class Menu {
         let index = prompt("Enter the index of the playlist that you want to view:");
         if (index > -1 && index < this.playlist.length) {
             this.selectedPlaylist = this.playlist[index];
-            let description = 'Playlist name: ' + this.selectedPlaylist.playlistName + '\n';
+            let description = 'Playlist Name: ' + this.selectedPlaylist.playlistName + '\n';
             description += ' ' + this.selectedPlaylist.describe() + '\n';
-            for (let i = 0; i < this.selectedPlaylist.song.length; i++){}
-                description += i + ') ' + this.selectedPlaylist.song[i].describe + '/n'
+            for (let i = 0; i < this.selectedPlaylist.songs.length; i++){
+                description += i + ') ' + this.selectedPlaylist.songs[i].describe() + '\n'
             }
             let selection1 = this.showPlaylistMenuOptions(description);
             switch (selection1){
@@ -110,24 +110,32 @@ class Menu {
                     break;
                 case '2':
                     this.deleteSong();
-                    break;
+            
             }
         }
-    
+    }
 
-    deletePlaylist(){
-        let index = prompt('Enter the index of the playlist you wish to delete:');
-        if (index > -1 && index < this.playlist.length) {
+    deletePlaylist() {
+        let index = prompt ('Enter the index of the playlist to be deleted:');
+        if(index > -1 && index < this.playlist.length){
             this.playlist.splice(index,1);
         }
     }
 
-    createPlaylist(){
-        let name = prompt('Enter name for playlist: ');
-        let songName = prompt('Enter "song, artist" to add a new song to playlist:')
-        this.selectedPlaylist.addSong(new Song(songName + artistName));
+    addSong() {
+        let songName = prompt('Enter the song title');
+        let artistName = prompt ('Enter artist name');
+        this.selectedPlaylist.addSong(new Song(songName,artistName))
+    }
+
+    deleteSong() {
+        let index = prompt('Enter incex of song you would like to delete: ');
+        if (index > -1 && index <this.selectedPlaylist.songs.length) {this.selectedPlaylist.songs.splice(index,1);
+        }
     }
 }
 
-let menu = new Menu();
-menu.start();
+    let menu = new Menu();
+    menu.start();
+
+
