@@ -47,10 +47,10 @@ class Playlist {
                     this.viewPlaylist();
                     break;
                 case '3':
-                    this.deletePlaylist;
+                    this.deletePlaylist();
                     break;
                 case '4':
-                    this.displayAllPlaylists;
+                    this.displayAllPlaylists();
                     break;
                 default:
                     selection = 0;
@@ -70,7 +70,7 @@ class Playlist {
             4) view all playlists
         `);
     }
-0
+
     showPlaylistMenuOptions(playlistInfo){
         return prompt (`
             0) back
@@ -129,7 +129,7 @@ class Playlist {
     }
 
     deleteSong() {
-        let index = prompt('Enter incex of song you would like to delete: ');
+        let index = prompt('Enter index of song you would like to delete: ');
         if (index > -1 && index <this.selectedPlaylist.songs.length) {this.selectedPlaylist.songs.splice(index,1);
         }
     }
