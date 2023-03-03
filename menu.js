@@ -44,7 +44,7 @@ class Playlist {
                     this.createPlaylist();
                     break;
                 case '2':
-                    this.viewPlaylist();
+                    this.editPlaylist();
                     break;
                 case '3':
                     this.deletePlaylist();
@@ -65,23 +65,24 @@ class Playlist {
         return prompt(`
             0) exit
             1) create a new playlist
-            2) view a playlist
+            2) edit a playlist
             3) delete a playlist
             4) view all playlists
         `);
     }
 
-    showPlaylistMenuOptions(playlistInfo){
-        return prompt (`
-            0) back
-            1) add a new song
-            3) delete a song
-            -----------------
-            ${playlistInfo}
-        `);
-    }
+    showPlaylistMenuOptions(playlistInfo) {
+            return prompt (`
+                0) back
+                1) add a new song
+                3) delete a song
+                -----------------
+                ${playlistInfo} 
+            `);  
+        }
 
-    displayAllPlaylists(){
+
+    displayAllPlaylists() {
         let playlistString = '';
             for (let i = 0; i < this.playlist.length; i++) {
                 playlistString += i+ ') ' + this.playlist[i].playlistName + '\n';
@@ -94,16 +95,16 @@ class Playlist {
         this.playlist.push(new Playlist(playlistName));
     }
 
-    viewPlaylist() {
-        let index = prompt("Enter the index of the playlist that you want to view:");
-        if (index > -1 && index < this.playlist.length) {
-            this.selectedPlaylist = this.playlist[index];
-            let description = 'Playlist Name: ' + this.selectedPlaylist.playlistName + '\n';
-            description += ' ' + this.selectedPlaylist.describe() + '\n';
-            for (let i = 0; i < this.selectedPlaylist.songs.length; i++){
-                description += i + ') ' + this.selectedPlaylist.songs[i].describe() + '\n'
-            }
-            let selection1 = this.showPlaylistMenuOptions(description);
+editPlaylist() {
+    let index = prompt("Enter the index of the playlist that you want to edit:");
+    if (index > -1 && index < this.playlist.length) {
+        this.selectedPlaylist = this.playlist[index];
+        let description = 'Playlist Name: ' + this.selectedPlaylist.playlistName + '\n';
+        description += ' ' + this.selectedPlaylist.describe() + '\n';
+        for (let i = 0; i < this.selectedPlaylist.songs.length; i++){
+            description += i + ') ' + this.selectedPlaylist.songs[i].describe() + '\n';
+        }
+        let selection1 = this.showPlaylistMenuOptions(description);
             switch (selection1){
                 case '1' :
                     this.addSong();
@@ -111,7 +112,8 @@ class Playlist {
                 case '2':
                     this.deleteSong();
             
-            }
+            }  
+            selection1 = this.showPlaylistMenuOptions(description); 
         }
     }
 
@@ -125,7 +127,7 @@ class Playlist {
     addSong() {
         let songName = prompt('Enter the song title');
         let artistName = prompt ('Enter artist name');
-        this.selectedPlaylist.addSong(new Song(songName,artistName))
+        this.selectedPlaylist.addSong(new Song(songName,artistName));
     }
 
     deleteSong() {
