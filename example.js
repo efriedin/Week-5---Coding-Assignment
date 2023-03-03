@@ -130,11 +130,12 @@ class Team {
     }
     
     deletePlayer() {
-    let index = prompt('Enter the index of the player that you wish to delete: ');
-    if (index > -1 && index < this.selectedTeam.players.length) { this.selectedTeam.players.splice(index,1);
+        let index = prompt('Enter the index of the player that you wish to delete: ');
+        if (index > -1 && index < this.selectedTeam.players.length) { this.selectedTeam.players.splice(index,1);
+        }
     }
-    }
-    }
-    let menu = new Menu();
-    menu.start();
+}
+
+let menu = new Menu();
+menu.start();
     

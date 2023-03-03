@@ -15,7 +15,6 @@ class Playlist {
         this.songs = [];
     }
 
-
     addSong(song){
         if (song instanceof Song){
             this.songs.push(song);
@@ -75,7 +74,7 @@ class Playlist {
             return prompt (`
                 0) back
                 1) add a new song
-                3) delete a song
+                2) delete a song
                 -----------------
                 ${playlistInfo} 
             `);  
@@ -103,17 +102,24 @@ editPlaylist() {
         description += ' ' + this.selectedPlaylist.describe() + '\n';
         for (let i = 0; i < this.selectedPlaylist.songs.length; i++){
             description += i + ') ' + this.selectedPlaylist.songs[i].describe() + '\n';
-        }
+        } 
         let selection1 = this.showPlaylistMenuOptions(description);
+        while(selection1 != 0) {
             switch (selection1){
                 case '1' :
                     this.addSong();
                     break;
                 case '2':
                     this.deleteSong();
-            
-            }  
+            } 
+        description = 'Playlist Name: ' + this.selectedPlaylist.playlistName + '\n';
+        description += ' ' + this.selectedPlaylist.describe() + '\n';
+        for (let i = 0; i < this.selectedPlaylist.songs.length; i++){
+            description += i + ') ' + this.selectedPlaylist.songs[i].describe() + '\n';
+        } 
+        
             selection1 = this.showPlaylistMenuOptions(description); 
+            }
         }
     }
 
@@ -132,12 +138,10 @@ editPlaylist() {
 
     deleteSong() {
         let index = prompt('Enter index of song you would like to delete: ');
-        if (index > -1 && index <this.selectedPlaylist.songs.length) {this.selectedPlaylist.songs.splice(index,1);
+        if (index > -1 && index < this.selectedPlaylist.songs.length) {this.selectedPlaylist.songs.splice(index,1);
         }
     }
 }
 
-    let menu = new Menu();
-    menu.start();
-
-
+let menu = new Menu();
+menu.start();
